@@ -1,11 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Menu</title>
+  </head>
+  <body>
+    <div id="menu" class="container">
+      <h1>Merged Menu</h1>
+      <ul id="menu-list"></ul>
+    </div>
+
+    <script>
+      async function displayMergedMenu() {
+        try {
+          const response = await fetch("http://localhost:8080/merger");
+          const menuItems = await response.json();
+
+          const menuList = document.getElementById("menu-list");
+
+          menuList.innerHTML = "";
+
+          menuItems.forEach((menuItem) => {
+            const listItem = document.createElement("li");
+            listItem.textContent = `${menuItem.name} - ${
+              menuItem.description
+            } - $${menuItem.price.toFixed(2)}`;
+            menuList.appendChild(listItem);
+          });
+        } catch (error) {
+          console.error("Error fetching merged menu:", error);
+        }
+      }
+
+      displayMergedMenu();
+    </script>
+  </body>
 </html>
