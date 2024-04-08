@@ -4,40 +4,46 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Diner</title>
-    <link href="diner.css" rel="stylesheet" />
+    
+    <link rel="stylesheet" href="navbar.css" />
   </head>
   <body>
     <div id="menu" class="container">
-      <h1>Diner Menuu</h1>
+      <ul class="topnav">
+        <li><a href="index.html">AllMenus</a></li>
+        <li><a href="BreakFast.html">BreakFast</a></li>
+        <li><a href="Lunch.html">Lunch</a></li>
+        <li><a href="Diner.html">Dinner </a></li>
+        <li><a href="Vegetarian.html">Vegetarian </a></li>
+        <li class="right"><a class="active" href="Login.html">Login</a></li>
+      </ul>
+      <h1>Dinner Menu</h1>
     </div>
+    <div id="menu-list"></div>
 
     <script>
-      let host = "http://localhost:8080";
-      let menuDiv = document.getElementById("menu");
+      async function displayMergedMenu() {
+        try {
+          const response = await fetch("https://diner-pancakehouse-latest-2.onrender.com/merger/supper");
+          const menuItems = await response.json();
 
-      displayTheMenu();
+          const menuList = document.getElementById("menu-list");
 
-      async function getTheMenu() {
-        let response = await fetch(host + "/diner");
-        let menu = await response.json();
-        return menu;
-      }
+          menuList.innerHTML = "";
 
-      async function displayTheMenu() {
-        let menu = await getTheMenu();
-        for (let menuItem of menu) {
-          let div = document.createElement("div");
-          div.class = "menu-item";
-          div.innerHTML = `
-               <div class="menu-item">
-                <div class="item-name">${menuItem.name}</div>
-                <div class="item-description">${menuItem.description}</div>
-                <div class="item-price">${menuItem.price}</div>
-               </div>
-               `;
-          menuDiv.appendChild(div);
+          menuItems.forEach((menuItem) => {
+            const listItem = document.createElement("li");
+            listItem.textContent = `${menuItem.name} - ${
+              menuItem.description
+            } - $${menuItem.price.toFixed(2)}`;
+            menuList.appendChild(listItem);
+          });
+        } catch (error) {
+          console.error("Error fetching merged menu:", error);
         }
       }
+
+      displayMergedMenu();
     </script>
   </body>
 </html>

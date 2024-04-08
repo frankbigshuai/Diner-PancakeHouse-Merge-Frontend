@@ -3,27 +3,24 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Menu</title>
-    <link rel="stylesheet" href="navbar.css" />
+    <title>Document</title>
     <link rel="stylesheet" href="navbar.css" />
   </head>
   <body>
-    <div id="menu" class="container">
-      <ul class="topnav">
-        <li><a href="index.html">AllMenus</a></li>
-        <li><a href="BreakFast.html">BreakFast</a></li>
-        <li><a href="Lunch.html">Lunch</a></li>
-        <li><a href="Diner.html">Dinner </a></li>
-        <li><a href="Vegetarian.html">Vegetarian </a></li>
-        <li class="right"><a class="active" href="Login.html">Login</a></li>
-      </ul>
-      <h1>All Menu</h1>
+    <ul class="topnav">
+      <li><a href="index.html">AllMenus</a></li>
+      <li><a href="BreakFast.html">BreakFast</a></li>
+      <li><a href="Lunch.html">Lunch</a></li>
+      <li><a href="Diner.html">Dinner </a></li>
+      <li><a href="Vegetarian.html">Vegetarian </a></li>
+    </ul>
+    <h1>Vegetarian Menu</h1>
     <div id="menu-list"></div>
 
     <script>
       async function displayMergedMenu() {
         try {
-          const response = await fetch("https://diner-pancakehouse-latest-2.onrender.com/merger");
+          const response = await fetch("https://diner-pancakehouse-latest-2.onrender.com/merger/vegetarian");
           const menuItems = await response.json();
 
           const menuList = document.getElementById("menu-list");
